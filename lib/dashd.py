@@ -3,11 +3,10 @@ dashd JSONRPC interface
 """
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
-from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
-from masternode import Masternode
 import re
+from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
+from masternode import Masternode
 
 
 class DashDaemon():

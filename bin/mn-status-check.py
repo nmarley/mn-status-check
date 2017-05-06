@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 import sys
 import os
-sys.path.append(os.path.normpath(os.path.join(os.path.dirname(__file__), '../lib')))
-from dashd import DashDaemon
 import socket
-from bitcoinrpc.authproxy import JSONRPCException
 import argparse
 import simplejson as json
+from bitcoinrpc.authproxy import JSONRPCException
+sys.path.append(os.path.normpath(os.path.join(os.path.dirname(__file__), '../lib')))
+from dashd import DashDaemon
 
 
 def is_dashd_port_open(dashd):
