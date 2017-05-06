@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import sys
 import os
 import socket
@@ -22,6 +23,18 @@ def is_dashd_port_open(dashd):
     return port_open
 
 
+def build_cloudwatch_cmd(status):
+    cmd = """
+aws cloudwatch put-metric-data \\
+  --namespace DashCore \\
+  --metric-name MasternodeStatus \\
+  --dimensions Hostname=$(hostname),Network={} \\
+  --value {}
+    """.format(status['network'], status['status_ok'])
+
+    return cmd
+
+
 def main():
     from dashd import DashDaemon
     options = process_args()
@@ -37,6 +50,13 @@ def main():
     mn_status = dashd.mn_status()
     print(json.dumps(mn_status))
 
+    if options.cloudwatch:
+        cmd = build_cloudwatch_cmd(mn_status)
+        print("Sending metric to CloudWatch...", end='')
+        sys.stdout.flush()
+        os.system(cmd)
+        print(" done.")
+
 
 def process_args():
     parser = argparse.ArgumentParser()
@@ -44,6 +64,12 @@ def process_args():
                         required=True,
                         help='dash config file with credentials',
                         dest='dash_config')
+    parser.add_argument('--send-cloudwatch-metric',
+                        required=False,
+                        help='send masternode status metric (0 or 1) to \
+                              AWS CloudWatch via awscli',
+                        action='store_true',
+                        dest='cloudwatch')
     args = parser.parse_args()
 
     return args
