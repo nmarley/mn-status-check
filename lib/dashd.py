@@ -118,11 +118,17 @@ class DashDaemon():
                 mn = Masternode(vin, val)
                 mn_queue_status = mn.status
 
+            status_ok = 0.0
+            if rpc_mn_status['status'] == 'Masternode successfully started' \
+               and mn_queue_status == 'ENABLED':
+                status_ok = 1.0
+
             status = {
                 'status_message': rpc_mn_status['status'],
                 'vin': vin,
                 'queue_status': mn_queue_status,
                 'network': 'testnet' if self.is_testnet() else 'mainnet',
+                'status_ok': status_ok,
             }
 
         except JSONRPCException as e:
