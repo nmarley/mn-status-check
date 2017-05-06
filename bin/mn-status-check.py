@@ -4,9 +4,7 @@ import os
 sys.path.append(os.path.normpath(os.path.join(os.path.dirname(__file__), '../lib')))
 from dashd import DashDaemon
 import socket
-import time
 from bitcoinrpc.authproxy import JSONRPCException
-import signal
 import argparse
 import simplejson as json
 
