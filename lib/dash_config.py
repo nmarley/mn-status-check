@@ -27,7 +27,8 @@ class DashConfig():
     @classmethod
     def get_rpc_creds(self, data, network='mainnet'):
         # get rpc info from dash.conf
-        match = re.findall(r'rpc(user|password|port)=(.*?)$', data, re.MULTILINE)
+        match = re.findall(r'rpc(user|password|port)=(.*?)$', data,
+                           re.MULTILINE)
 
         # python >= 2.7
         creds = {key: value for (key, value) in match}

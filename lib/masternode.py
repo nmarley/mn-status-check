@@ -1,5 +1,5 @@
-# basically just parse & make it easier to access the MN data from the output of
-# "masternodelist full"
+# basically just parse & make it easier to access the MN data from the output
+# of "masternodelist full"
 
 
 class Masternode():
@@ -8,7 +8,13 @@ class Masternode():
         self.txid = txid
         self.vout_index = int(vout_index)
 
-        (status, protocol, address, ip_port, lastseen, activeseconds, lastpaid) = self.parse_mn_string(mnstring)
+        (status,
+         protocol,
+         address,
+         ip_port,
+         lastseen,
+         activeseconds,
+         lastpaid) = self.parse_mn_string(mnstring)
         self.status = status
         self.protocol = int(protocol)
         self.address = address
@@ -34,7 +40,13 @@ class Masternode():
          lastpaidblock, ip_port) = mn_full_out.split()
 
         # status protocol pubkey IP lastseen activeseconds lastpaid
-        return (status, protocol, address, ip_port, lastseen, activeseconds, lastpaid)
+        return (status,
+                protocol,
+                address,
+                ip_port,
+                lastseen,
+                activeseconds,
+                lastpaid)
 
     @property
     def vin(self):

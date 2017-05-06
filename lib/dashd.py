@@ -31,7 +31,8 @@ class DashDaemon():
     def from_dash_conf(self, dash_dot_conf):
         from dash_config import DashConfig
         config_text = DashConfig.slurp_config_file(dash_dot_conf)
-        creds = DashConfig.get_rpc_creds(config_text, os.environ.get('DASH_NETWORK', 'mainnet'))
+        network = os.environ.get('DASH_NETWORK', 'mainnet')
+        creds = DashConfig.get_rpc_creds(config_text, network)
 
         return self(**creds)
 
@@ -148,14 +149,15 @@ class DashDaemon():
         return block_hash
 
     def parse_masternode_status_vin(self, status_vin_string):
-        status_vin_string_regex = re.compile('CTxIn\(COutPoint\(([0-9a-zA-Z]+),\\s*(\d+)\),')
+        mn_outpoint_pattern = 'CTxIn\(COutPoint\(([0-9a-zA-Z]+),\\s*(\d+)\),'
+        status_vin_string_regex = re.compile(mn_outpoint_pattern)
 
         m = status_vin_string_regex.match(status_vin_string)
         txid = m.group(1)
         index = m.group(2)
 
         vin = txid + '-' + index
-        if (txid == '0000000000000000000000000000000000000000000000000000000000000000'):
+        if (txid == ('0' * 64)):
             vin = None
 
         return vin
