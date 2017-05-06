@@ -5,8 +5,8 @@ import socket
 import argparse
 import simplejson as json
 from bitcoinrpc.authproxy import JSONRPCException
-sys.path.append(os.path.normpath(os.path.join(os.path.dirname(__file__), '../lib')))
-from dashd import DashDaemon
+libpath = os.path.normpath(os.path.join(os.path.dirname(__file__), '../lib'))
+sys.path.append(libpath)
 
 
 def is_dashd_port_open(dashd):
@@ -23,6 +23,7 @@ def is_dashd_port_open(dashd):
 
 
 def main():
+    from dashd import DashDaemon
     options = process_args()
 
     dashd = DashDaemon.from_dash_conf(options.dash_config)

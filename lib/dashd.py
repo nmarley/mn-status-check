@@ -5,8 +5,8 @@ import sys
 import os
 import re
 from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
-from masternode import Masternode
+libpath = os.path.join(os.path.dirname(__file__), '..', 'lib')
+sys.path.append(libpath)
 
 
 class DashDaemon():
@@ -43,6 +43,7 @@ class DashDaemon():
         return self.rpc_command('getinfo')['testnet']
 
     def get_masternodes(self):
+        from masternode import Masternode
         mnlist = self.rpc_command('masternodelist', 'full')
         return [Masternode(k, v) for (k, v) in mnlist.items()]
 
@@ -101,6 +102,7 @@ class DashDaemon():
         return not (self.get_current_masternode_vin() is None)
 
     def mn_status(self):
+        from masternode import Masternode
         status = {}
 
         try:
