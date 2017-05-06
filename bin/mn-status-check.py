@@ -52,6 +52,8 @@ def main():
 
     if options.cloudwatch:
         cmd = build_cloudwatch_cmd(mn_status)
+        print("cmd = ...")
+        print(cmd)
         print("Sending metric to CloudWatch...", end='')
         sys.stdout.flush()
         os.system(cmd)
