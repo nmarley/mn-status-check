@@ -34,21 +34,8 @@ def main():
         print("Cannot connect to dashd. Please ensure dashd is running and the JSONRPC port open.")
         return
 
-    # check dashd sync
-    if not dashd.is_synced():
-        print("dashd not synced with network! Awaiting full sync before running.")
-        return
-
-    if options.status_check:
-        printdbg("--masternode-status option used, reporting status only")
-        mn_status = dashd.mn_status()
-        print(json.dumps(mn_status))
-        return
-
-    # ensure valid masternode
-    if not dashd.is_masternode():
-        print("Invalid Masternode Status, cannot continue.")
-        return
+    mn_status = dashd.mn_status()
+    print(json.dumps(mn_status))
 
 
 def process_args():
@@ -57,10 +44,6 @@ def process_args():
                         required=True,
                         help='dash config file with credentials',
                         dest='dash_config')
-    parser.add_argument('-s', '--masternode-status',
-                        action='store_true',
-                        help='Masternode status check and exit',
-                        dest='status_check')
     args = parser.parse_args()
 
     return args
