@@ -122,6 +122,7 @@ class DashDaemon():
                 'status_message': rpc_mn_status['status'],
                 'vin': vin,
                 'queue_status': mn_queue_status,
+                'network': 'testnet' if self.is_testnet() else 'mainnet',
             }
 
         except JSONRPCException as e:
