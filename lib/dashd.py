@@ -10,6 +10,7 @@ from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 from masternode import Masternode
 from decimal import Decimal
 import time
+import re
 
 
 class DashDaemon():
