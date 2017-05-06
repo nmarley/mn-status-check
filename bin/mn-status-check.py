@@ -28,9 +28,11 @@ def build_cloudwatch_cmd(status):
 aws cloudwatch put-metric-data \\
   --namespace DashCore \\
   --metric-name MasternodeStatus \\
-  --dimensions Hostname=$(hostname),Network={} \\
+  --dimensions Hostname={},Network={} \\
   --value {}
-    """.format(status['network'], status['status_ok'])
+    """.format(socket.gethostname(),
+               status['network'],
+               status['status_ok'])
 
     return cmd
 
