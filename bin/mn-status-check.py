@@ -45,8 +45,8 @@ def main():
 
     # check dashd connectivity
     if not is_dashd_port_open(dashd):
-        print("Cannot connect to dashd. Please ensure dashd is running \
-               and the JSONRPC port open.")
+        print("Cannot connect to dashd. Please ensure dashd is running "
+              "and the JSONRPC port open.")
         return
 
     mn_status = dashd.mn_status()
