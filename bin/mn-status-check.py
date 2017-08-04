@@ -58,6 +58,9 @@ def main():
         print(cmd)
         print("Sending metric to CloudWatch...", end='')
         sys.stdout.flush()
+
+        os.environ['PATH'] = "/usr/local/bin:%s" % os.environ.get('PATH')
+
         os.system(cmd)
         print(" done.")
 
