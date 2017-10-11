@@ -52,7 +52,7 @@ def main():
     mn_status = dashd.mn_status()
     print(json.dumps(mn_status))
 
-    if options.cloudwatch:
+    if options.cloudwatch and mn_status.get('network'):
         cmd = build_cloudwatch_cmd(mn_status)
         print("cmd = ...")
         print(cmd)
